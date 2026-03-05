@@ -1,35 +1,22 @@
-# test_imports.py
-print("Testing imports...")
+# test_db_manager.py
+from database_manager import DatabaseManager
 
-try:
-    from PyQt5.QtWidgets import QApplication
-    from PyQt5.QtGui import QColor
-    print("✓ PyQt5 imports successful")
-except ImportError as e:
-    print(f"✗ PyQt5 import error: {e}")
+print("Testing DatabaseManager...")
+db = DatabaseManager()
 
-try:
-    from modules.bus_management import BusManagementPage
-    print("✓ BusManagementPage import successful")
-except ImportError as e:
-    print(f"✗ BusManagementPage import error: {e}")
+# Check if we can connect
+print(f"Database path: {db.db_path}")
 
-try:
-    from modules.driver_management import DriverManagementPage
-    print("✓ DriverManagementPage import successful")
-except ImportError as e:
-    print(f"✗ DriverManagementPage import error: {e}")
+# List all tables
+tables = db.get_table_names()
+print(f"\nFound {len(tables)} tables:")
+for table in tables:
+    print(f"  - {table}")
 
-try:
-    from modules.school_management import SchoolManagementPage
-    print("✓ SchoolManagementPage import successful")
-except ImportError as e:
-    print(f"✗ SchoolManagementPage import error: {e}")
+# Check users
+users = db.fetch_all("SELECT username, role FROM users")
+print(f"\nUsers in database: {len(users)}")
+for user in users:
+    print(f"  - {user['username']} ({user['role']})")
 
-try:
-    from reports_dashboard import ReportsDashboard
-    print("✓ ReportsDashboard import successful")
-except ImportError as e:
-    print(f"✗ ReportsDashboard import error: {e}")
-
-print("\nTest complete!")
+print("\n✓ DatabaseManager is working!")

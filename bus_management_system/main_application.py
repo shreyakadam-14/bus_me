@@ -14,16 +14,26 @@ import datetime
 import sys
 
 # Import integrated modules
+# In main_application.py, replace the imports section with:
+
+# Import integrated modules with database
 try:
+    from modules.bus_management_db import BusManagementPage
+    from modules.driver_management_db import DriverManagementPage
+    from modules.school_management_db import SchoolManagementPage
+    from modules.system_admin_db import UserManagement
+    from modules.system_settings_db import SystemSettings
+    from modules.reports_dashboard_db import ReportsDashboard
+    print("✓ All database-enabled modules imported successfully")
+except ImportError as e:
+    print(f"Warning: Module import error - {e}")
+    # Fallback to mock versions if database versions don't exist
     from modules.bus_management import BusManagementPage
     from modules.driver_management import DriverManagementPage
     from modules.school_management import SchoolManagementPage
     from modules.system_admin import UserManagement
     from modules.system_settings import SystemSettings
     from reports_dashboard import ReportsDashboard
-    print("✓ All modules imported successfully")
-except ImportError as e:
-    print(f"Warning: Module import error - {e}")
     # Create placeholder classes if imports fail
     class BusManagementPage(QWidget):
         def __init__(self): super().__init__()
